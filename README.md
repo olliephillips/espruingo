@@ -1,5 +1,6 @@
 # Espruingo
-Espruingo is a live code loader for Espruino - use your favorite Editor/IDE. Written in Go (1.5)
+Espruingo is a live code loader for Espruino - run once and it will monitor the target file, sending changes to Espruino on each file save. Use your favorite Editor/IDE. Written in Go (1.5)
+Also provides console output from espruino. Plugin and connecto Espruino to monitor output.
 
 ## Install
 Currently there are no binaries, so you need a Go environment and to download and install the source.
@@ -24,6 +25,7 @@ Using the included esp.js file, assuming on a Macbook or Linux you might start i
 espruingo esp.js /dev/tty.usbmodemfa131
 
 ```
+Make changes and they are pushed to your board on file save
 
 ## License & Contributions
 MIT licensed. Contributions welcome.

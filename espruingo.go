@@ -139,8 +139,7 @@ func main() {
 func cleanConsoleOutput(buf string) string {
 	output := strings.Replace(buf, "\b", "", -1)
 	output = strings.Replace(output, ">", "", -1)
-	output = strings.Replace(output, "=function () { ... }", -1)
-)
+	output = strings.Replace(output, "=function () { ... }", "", -1)
 	output = strings.Replace(output, "=undefined", "", -1)
 	return output
 }
