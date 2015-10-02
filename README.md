@@ -16,7 +16,7 @@ Intended to run as a binary, once installed, make sure in your PATH so you can r
 espruingo <file to watch> <port name>
 ```
 
-If not in path, seems if you have a Go enviroment setup properly, you can run like this (my MacBook):
+If not in path, seems if you have a Go environment setup properly, you can run like this (my MacBook):
 ```
 ./espruingo <file to watch> <port name>
 
@@ -28,7 +28,7 @@ Using the included esp.js file, assuming on a Macbook or Linux you might start i
 espruingo esp.js /dev/tty.usbmodemfa131
 
 ```
-Make changes and they are pushed to your board on file save
+Make changes to `esp.js` and they are pushed to your board on file save
 
 ## License & Contributions
 MIT licensed. Contributions welcome.
