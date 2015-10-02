@@ -1,6 +1,9 @@
 # Espruingo
-Espruingo is a live code loader for Espruino - run once and it will monitor the target file, sending changes to Espruino on each file save. Use your favorite Editor/IDE. Written in Go (1.5)
-Also provides console output from espruino. Plugin and connecto Espruino to monitor output.
+Espruingo is a live code loader for Espruino - run once and it will monitor the target file, sending changes to Espruino on each file save. Use your favorite Editor/IDE.
+
+Also provides console output from espruino - plugin and connect to Espruino to monitor output.
+
+Written in Go (1.5).
 
 ## Install
 Currently there are no binaries, so you need a Go environment and to download and install the source.
