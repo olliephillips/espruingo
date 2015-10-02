@@ -12,6 +12,8 @@ import (
 	"github.com/daviddengcn/go-colortext"
 	"github.com/go-fsnotify/fsnotify"
 	"github.com/jacobsa/go-serial/serial"
+	//"github.com/tdewolff/minify"
+	//"github.com/tdewolff/minify/js"
 	"log"
 	"os"
 	"strings"
@@ -82,6 +84,16 @@ func main() {
 						log.Fatal(err)
 					}
 					defer file.Close()
+
+					/*
+						// Minify
+						// This the bones of it, how to make it work here, and should it be optional
+						m := minify.New()
+						m.AddFunc("text/javascript", js.Minify)
+						if err := js.Minify(m, "text/javascript", w, r); err != nil {
+							log.Fatal("js.Minify:", err)
+						}
+					*/
 
 					scanner := bufio.NewScanner(file)
 

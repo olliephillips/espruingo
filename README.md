@@ -35,3 +35,5 @@ MIT licensed. Contributions welcome.
 
 ## Roadmap
 Maybe make cross platform binaries available.
+Minification
+Module loading
