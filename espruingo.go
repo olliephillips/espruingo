@@ -51,7 +51,7 @@ func main() {
 	// Set up connection
 	options := serial.OpenOptions{
 		PortName:        device,
-		BaudRate:        19200,
+		BaudRate:        115200,
 		DataBits:        8,
 		StopBits:        1,
 		MinimumReadSize: 1,
@@ -103,40 +103,13 @@ func main() {
 					// Load modules
 					script = loadModules(script)
 
+					// Minify script
+					script = minifyScript(script)
+
 					// Write to board
-					//log.Println(script)
-					//os.Exit(0)
 					script = "echo(0)\n" + script + "echo(1)\n"
 					_, err = s.Write([]byte(script))
-					/*
 
-						file, err := os.Open(targetFile)
-						if err != nil {
-							log.Fatal(err)
-						}
-						defer file.Close()
-					*/
-					/*
-						// Minify
-						// This the bones of it, how to make it work here, and should it be optional
-						m := minify.New()
-						m.AddFunc("text/javascript", js.Minify)
-						if err := js.Minify(m, "text/javascript", w, r); err != nil {
-							log.Fatal("js.Minify:", err)
-						}
-					*/
-					/*
-						scanner := bufio.NewScanner(file)
-
-							for scanner.Scan() {
-								//Send each line to Espruino
-								_, err = s.Write([]byte(scanner.Text() + "\n"))
-							}
-
-							if err := scanner.Err(); err != nil {
-								log.Fatal(err)
-							}
-					*/
 				}
 			case err = <-watcher.Errors:
 				colorLog("! Unexpected error..", "red")
@@ -243,6 +216,21 @@ func loadModules(script string) string {
 		}
 
 	}
+	return script
+}
+
+func minifyScript(script string) string {
+
+	/*
+		// Minify
+		// This the bones of it, how to make it work here, and should it be optional
+		m := minify.New()
+		m.AddFunc("text/javascript", js.Minify)
+		if err := js.Minify(m, "text/javascript", w, r); err != nil {
+			log.Fatal("js.Minify:", err)
+		}
+	*/
+
 	return script
 }
 
