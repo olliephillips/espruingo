@@ -6,8 +6,8 @@ Also provides console output from Espruino - plugin and connect to Espruino to m
 Written in Go (1.5).
 
 ## Key Features
-* Source file monitoring, files uploaded to Espurino on save
-* Basic module loading, fetches the minified versions of the modules from the espurino.com/modules. (Recursion not currently supported).
+* Source file monitoring, files uploaded to Espurino board on save
+* Basic module loading, fetches the minified versions of the modules from  http://www.espurino.com/modules. (Recursion not currently supported).
 * Console output in terminal
 
 ## Install
