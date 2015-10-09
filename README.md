@@ -5,9 +5,10 @@ Also provides console output from Espruino - plugin and connect to Espruino to m
 
 Written in Go (1.5).
 
-## Features
-Source file monitoring, files uploaded to Espurino on save
-Basic module loading, fetches the minified versions of the modules from the espurino.com/modules. (Recursion not currently supported).
+## Key Features
+* Source file monitoring, files uploaded to Espurino on save
+* Basic module loading, fetches the minified versions of the modules from the espurino.com/modules. (Recursion not currently supported).
+* Console output in terminal
 
 ## Install
 Currently there are no binaries, so you need a Go environment and to download and install the source.
@@ -38,8 +39,6 @@ Make changes to `esp.js` and they are pushed to your board on file save
 MIT licensed. Contributions welcome.
 
 ## Roadmap
-Maybe make cross platform binaries available.
-
-Minification
-
-Recursive module loading, handle require statements in modules
+* Maybe make cross platform binaries available.
+* Minification
+* Recursive module loading, handle require statements in modules
