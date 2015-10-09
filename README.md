@@ -5,6 +5,10 @@ Also provides console output from Espruino - plugin and connect to Espruino to m
 
 Written in Go (1.5).
 
+## Features
+Source file monitoring, files uploaded to Espurino on save
+Basic module loading, fetches the minified versions of the modules from the espurino.com/modules. (Recursion not currently supported).
+
 ## Install
 Currently there are no binaries, so you need a Go environment and to download and install the source.
  - go get github.com/olliephillips/espruingo
@@ -35,5 +39,7 @@ MIT licensed. Contributions welcome.
 
 ## Roadmap
 Maybe make cross platform binaries available.
+
 Minification
-Module loading
+
+Recursive module loading, handle require statements in modules
