@@ -157,7 +157,6 @@ func main() {
 		log.Fatal(err)
 	}
 	<-done
-
 }
 
 // Helper function to clean up the console output
