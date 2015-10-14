@@ -25,6 +25,7 @@ import (
 	"time"
 )
 
+// No attempt to load these modules will be made
 var coreModules = []string{
 	"CC3000",
 	"http",
@@ -86,12 +87,10 @@ func main() {
 				if event.Op&fsnotify.Write == fsnotify.Write {
 					// File has changed, read it, send a reset() to Espurino and send the file line by line
 					_, err = s.Write([]byte("\x03reset();\n"))
-					//\x03reset();\n
 					colorLog("< Writing to board", "blue")
+
 					// Open and scan file
-
 					fContents := bytes.NewBuffer(nil)
-
 					f, err := os.Open(targetFile)
 					if err != nil {
 						colorLog("! Target file could not be opened for reading..", "red")
@@ -106,15 +105,18 @@ func main() {
 
 					// Load modules
 					script = loadModules(script)
-					log.Println("un:", script)
 
 					// Minify script
 					script = minifyScript(script)
-					log.Println("min:", script)
 
 					// Write to board
 					script = "echo(0)\n" + script + "echo(1)\n"
 					_, err = s.Write([]byte(script))
+					if err != nil {
+						colorLog("! Unable to write to Esrpuino..", "red")
+						os.Exit(0)
+						log.Fatal(err)
+					}
 
 				}
 			case err = <-watcher.Errors:
@@ -186,7 +188,7 @@ func colorLog(msg string, color string) {
 	ct.ResetColor()
 }
 
-// This function takes care of the module loading and namespacing
+// Helper function to load modules and namespace them
 func loadModules(script string) string {
 	var moduleUri = "http://www.espruino.com/modules"
 	var moduleName string
@@ -212,13 +214,13 @@ func loadModules(script string) string {
 			}
 			defer resp.Body.Close()
 			contents, err := ioutil.ReadAll(resp.Body)
+
 			// Recursively load modules from the module
 			contents = []byte(loadModules(string(contents)))
+
+			// Process the module
 			moduleJS = "var espruingo_" + moduleName + " = {};\n" + string(contents)
-			// We need to make some changes the module and our script to namespace and use it
-			// Replace the "exports." piece with "var espruingo.moduleName."
 			moduleJS = strings.Replace(moduleJS, "exports.", "espruingo_"+moduleName+".", 1)
-			// Replace the require("moduleName") with  "espruingo.moduleName"
 			script = strings.Replace(script, "require(\""+moduleName+"\")", "espruingo_"+moduleName, 1)
 
 			// We need to add the module to the top of our script
@@ -229,6 +231,7 @@ func loadModules(script string) string {
 	return script
 }
 
+// Helper function to minify code
 func minifyScript(script string) string {
 	m := minify.New()
 	m.AddFunc("text/javascript", js.Minify)
@@ -236,7 +239,6 @@ func minifyScript(script string) string {
 	if err != nil {
 		log.Fatal("minify.String:", err)
 	}
-
 	return miny
 }
 
