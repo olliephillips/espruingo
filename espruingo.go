@@ -13,9 +13,9 @@ import (
 	"github.com/daviddengcn/go-colortext"
 	"github.com/go-fsnotify/fsnotify"
 	"github.com/jacobsa/go-serial/serial"
+	"github.com/tdewolff/minify"
+	"github.com/tdewolff/minify/js"
 	"io"
-	//"github.com/tdewolff/minify"
-	//"github.com/tdewolff/minify/js"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -106,10 +106,11 @@ func main() {
 
 					// Load modules
 					script = loadModules(script)
-					log.Println(script)
+					log.Println("un:", script)
 
 					// Minify script
 					script = minifyScript(script)
+					log.Println("min:", script)
 
 					// Write to board
 					script = "echo(0)\n" + script + "echo(1)\n"
@@ -229,18 +230,14 @@ func loadModules(script string) string {
 }
 
 func minifyScript(script string) string {
+	m := minify.New()
+	m.AddFunc("text/javascript", js.Minify)
+	miny, err := minify.String(m, "text/javascript", script)
+	if err != nil {
+		log.Fatal("minify.String:", err)
+	}
 
-	/*
-		// Minify
-		// This the bones of it, how to make it work here, and should it be optional
-		m := minify.New()
-		m.AddFunc("text/javascript", js.Minify)
-		if err := js.Minify(m, "text/javascript", w, r); err != nil {
-			log.Fatal("js.Minify:", err)
-		}
-	*/
-
-	return script
+	return miny
 }
 
 // Helper contains function to see if in slice
