@@ -1,5 +1,5 @@
 # Espruingo
-Espruingo is a live code loader for Espruino (http://www.espruino.com) - run once and it will monitor the target file, sending changes to Espruino on each file save. Use your favorite Editor/IDE.
+Espruingo is a live code loader for Espruino (http://www.espruino.com) - run once and it will monitor the target file, sending changes to your Espruino board on each file save. Use your favorite Editor/IDE.
 
 Also provides console output from Espruino - plugin and connect to Espruino to monitor output.
 
@@ -36,8 +36,11 @@ espruingo esp.js /dev/tty.usbmodemfa131
 ```
 Make changes to `esp.js` and they are pushed to your board on file save
 
-## License & Contributions
-MIT licensed. Contributions welcome.
+## License & Copyright
+Copyright Ollie Phillips 2015. MIT licensed.
+
+## Contributions
+Contributions welcome. Please fork and create a new branch for your development.
 
 ## Roadmap
-* Maybe make cross platform binaries available.
+* Cross platform binaries
