@@ -47,7 +47,7 @@ func main() {
 		device = flag.Args()[1]
 	}
 	targetFile = flag.Args()[0]
-	log.Println(device)
+
 	// Set up connection
 	options := serial.OpenOptions{
 		PortName:        device,
