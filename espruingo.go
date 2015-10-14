@@ -27,7 +27,6 @@ import (
 
 var coreModules = []string{
 	"CC3000",
-	"ESP8266WiFi",
 	"http",
 	"WIZnet",
 }
@@ -93,8 +92,13 @@ func main() {
 
 					fContents := bytes.NewBuffer(nil)
 
-					f, _ := os.Open(targetFile) // Error handling elided for brevity.
-					io.Copy(fContents, f)       // Error handling elided for brevity.
+					f, err := os.Open(targetFile)
+					if err != nil {
+						colorLog("! Target file could not be opened for reading..", "red")
+						os.Exit(0)
+						log.Fatal(err)
+					}
+					io.Copy(fContents, f)
 					f.Close()
 
 					// This is our script
@@ -102,6 +106,7 @@ func main() {
 
 					// Load modules
 					script = loadModules(script)
+					log.Println(script)
 
 					// Minify script
 					script = minifyScript(script)
@@ -185,6 +190,7 @@ func loadModules(script string) string {
 	var moduleUri = "http://www.espruino.com/modules"
 	var moduleName string
 	var moduleJS string
+	var moduleTargetUri string
 
 	// Scan script for require statements, first set up regex
 	r, _ := regexp.Compile("require\\(\"(.*)\"\\)")
@@ -193,10 +199,11 @@ func loadModules(script string) string {
 	for _, req := range r.FindAllString(script, -1) {
 		// For each match
 		moduleName = strings.Split(req, "\"")[1]
+		moduleTargetUri = moduleUri + "/" + moduleName + ".min.js"
 		// If a core module we don't need to load it
 		if !contains(coreModules, moduleName) {
 			// Load the module
-			resp, err := http.Get(moduleUri + "/" + moduleName + ".min.js")
+			resp, err := http.Get(moduleTargetUri)
 			if err != nil {
 				colorLog("! Could not get a module:  "+moduleName, "red")
 				os.Exit(0)
@@ -204,6 +211,8 @@ func loadModules(script string) string {
 			}
 			defer resp.Body.Close()
 			contents, err := ioutil.ReadAll(resp.Body)
+			// Recursively load modules from the module
+			contents = []byte(loadModules(string(contents)))
 			moduleJS = "var espruingo_" + moduleName + " = {};\n" + string(contents)
 			// We need to make some changes the module and our script to namespace and use it
 			// Replace the "exports." piece with "var espruingo.moduleName."
