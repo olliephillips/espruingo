@@ -12,7 +12,7 @@ Written in Go (1.5).
 * Console output in terminal
 
 ## Install
-Currently there are no binaries, so you need a Go environment and to download and install the source.
+You need a Go environment and to download and install the source. There are binaries, check the binaries folder and the README in there.
  - go get github.com/olliephillips/espruingo
  - go install github.com/olliephillips/espruingo
 
@@ -36,11 +36,11 @@ espruingo esp.js /dev/tty.usbmodemfa131
 ```
 Make changes to `esp.js` and they are pushed to your board on file save
 
+## Changelog
+v0.9.0 - Feature complete.
+
 ## License & Copyright
 Copyright Ollie Phillips 2015. MIT licensed.
 
 ## Contributions
 Contributions welcome. Please fork and create a new branch for your development.
-
-## Roadmap
-* Cross platform binaries

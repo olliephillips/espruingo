@@ -32,8 +32,16 @@ var coreModules = []string{
 	"WIZnet",
 }
 
+const (
+	appVersion string = "0.9.0"
+)
+
 func main() {
 	var targetFile, device string
+
+	//Banner
+	colorLog("! Espruingo v"+appVersion, "blue")
+
 	// Handle arguments
 	flag.Parse()
 	if len(flag.Args()) < 1 {
