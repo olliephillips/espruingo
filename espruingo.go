@@ -33,7 +33,7 @@ var coreModules = []string{
 }
 
 const (
-	appVersion string = "0.9.0"
+	appVersion string = "0.9.1"
 )
 
 func main() {
@@ -242,7 +242,9 @@ func loadModules(script string) string {
 func minifyScript(script string) string {
 	m := minify.New()
 	m.AddFunc("text/javascript", js.Minify)
-	miny, err := minify.String(m, "text/javascript", script)
+	// Changes in Minify API. 
+	// If you receive an error, please go get -u github.com/tdewolff/minify
+	miny, err := m.String("text/javascript", script) 
 	if err != nil {
 		log.Fatal("minify.String:", err)
 	}

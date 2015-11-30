@@ -37,6 +37,7 @@ espruingo esp.js /dev/tty.usbmodemfa131
 Make changes to `esp.js` and they are pushed to your board on file save
 
 ## Changelog
+v0.9.1 - Changes to make compatible with new API of minify package (github.com/tdewolff/minify). 
 v0.9.0 - Feature complete.
 
 ## License & Copyright
